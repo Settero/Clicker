@@ -603,6 +603,7 @@ MonoBehaviour:
   bonusText: {fileID: 7094072756501920035}
   iconImage: {fileID: 7094072757904350934}
   buyButton: {fileID: 7094072757787243164}
+  descriptionText: {fileID: 7094072756501920035}
 --- !u!1 &7094072757457615046
 GameObject:
   m_ObjectHideFlags: 0

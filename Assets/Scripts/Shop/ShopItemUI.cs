@@ -7,12 +7,11 @@ public class ShopItemUI : MonoBehaviour
     public int itemIndex;
     public ShopManager shopManager;
 
-    public TMP_Text nameText;    // заменили Text на TMP_Text
-    public TMP_Text priceText;
-    public TMP_Text bonusText;
-    public Image iconImage;
-    public Button buyButton;
-    
+    public TMP_Text nameText;   // Отображение имени товара
+    public TMP_Text priceText;  // Отображение цены
+    public TMP_Text bonusText;  // Отображение описания
+    public Image iconImage;     // Иконка товара
+    public Button buyButton;    // Кнопка покупки
 
     private void Start()
     {
@@ -20,29 +19,32 @@ public class ShopItemUI : MonoBehaviour
         buyButton.onClick.AddListener(OnBuyButtonClick);
     }
 
-    private void UpdateUI()
+    public void UpdateUI(int? overrideLevel = null)
     {
-        int level = shopManager.GetCurrentLevel(itemIndex);
+        int level = overrideLevel ?? shopManager.GetCurrentLevel(itemIndex);
         var item = shopManager.shopItems[itemIndex];
 
-        if (level >= item.maxLevel)
+        bool isMax = !item.isInfinite && level >= item.maxLevel;
+
+        if (isMax)
         {
             nameText.text = "Куплено";
             priceText.text = "-";
-            bonusText.text = "+" + item.GetBonusForLevel(level - 1) + " за клик";
-            buyButton.interactable = false;
+            bonusText.text = item.GetDescriptionForLevel(level);
             iconImage.sprite = item.GetIconForLevel(level - 1);
+            buyButton.interactable = false;
         }
         else
         {
             nameText.text = item.GetNameForLevel(level);
             priceText.text = item.GetPriceForLevel(level).ToString();
-            bonusText.text = "+" + item.GetBonusForLevel(level) + " за клик";
-            buyButton.interactable = true;
+            bonusText.text = item.GetDescriptionForLevel(level);
             iconImage.sprite = item.GetIconForLevel(level);
+            buyButton.interactable = true;
         }
     }
 
+    // Обработка нажатия на кнопку
     private void OnBuyButtonClick()
     {
         shopManager.BuyNextLevel(itemIndex);

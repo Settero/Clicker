@@ -6,13 +6,17 @@ public class ShopManager : MonoBehaviour
     public ShopItem[] shopItems;
 
     private int[] currentLevels;  // текущий уровень для каждого товара
-    private int n = 0;            // переменная, которую увеличивают бонусы
+
+    // Временные переменные, тебе нужно привязать к глобальным переменным валюты, силы клика и пас. дохода.
+    public int clickPower = 1;      // сила клика
+    public int moneyForMarket = 0;  // валюта
+    public int passiveIncome = 0;   // пассивный доход
 
     private void Awake()
     {
         currentLevels = new int[shopItems.Length];
         for (int i = 0; i < currentLevels.Length; i++)
-            currentLevels[i] = 0;  // стартуем с уровня 0
+            currentLevels[i] = 0;
     }
 
     public void BuyNextLevel(int itemIndex)
@@ -22,7 +26,8 @@ public class ShopManager : MonoBehaviour
         var item = shopItems[itemIndex];
         int level = currentLevels[itemIndex];
 
-        if (level >= item.maxLevel)
+        // Проверка на достижение максимального уровня (только если товар не бесконечный)
+        if (!item.isInfinite && level >= item.maxLevel)
         {
             Debug.Log("Максимальный уровень уже достигнут");
             return;
@@ -31,17 +36,29 @@ public class ShopManager : MonoBehaviour
         int price = item.GetPriceForLevel(level);
         int bonus = item.GetBonusForLevel(level);
 
-        // Тут должна быть проверка на наличие денег (если есть)
-        // Для примера просто увеличиваем n
-        n += bonus;
-        Debug.Log($"Куплен {item.GetNameForLevel(level)} за {price}. n = {n}");
+        // Добавить проверку на достаточность денег перед покупкой!
 
-        currentLevels[itemIndex]++;  // повышаем уровень
+        switch (item.bonusType)
+        {
+            case BonusType.ClickPower:
+                clickPower += bonus;
+                break;
+            case BonusType.PassiveIncome:
+                passiveIncome += bonus;
+                break;
+            case BonusType.MoneyInstant:
+                moneyForMarket += bonus;
+                break;
+        }
 
-        // Тут можно вызвать обновление UI для товара itemIndex
+        Debug.Log($"Куплен {item.GetNameForLevel(level)} за {price}. Сила клика = {clickPower}, Доход = {passiveIncome}, Валюта = {moneyForMarket}");
+
+        if (!item.isInfinite)
+            currentLevels[itemIndex]++;
     }
 
-    // Метод для получения текущего уровня товара
+
+    // Метод для получения текущего уровня товара для UI
     public int GetCurrentLevel(int itemIndex)
     {
         if (itemIndex < 0 || itemIndex >= currentLevels.Length) return 0;
