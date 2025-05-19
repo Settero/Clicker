@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.IO;
 using TMPro;
 using System;
@@ -39,10 +40,10 @@ public class Main : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
+        if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) && (EventSystem.current.IsPointerOverGameObject() == false))
         {
             knowledge += Convert.ToInt64(kadd * kmultiplier);
-            }
+        }
 
         KnowledgeText.text = knowledge.ToString();
         MoneyText.text = money.ToString();
