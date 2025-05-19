@@ -8,6 +8,14 @@ public enum BonusType
     MoneyInstant   // Мгновенно добавляет деньги
 }
 
+// Отдельный енум для типа валют
+public enum CurrencyType
+{
+    Money,
+
+    Knowledge
+}
+
 [CreateAssetMenu(fileName = "NewShopItem", menuName = "Shop/Item")]
 public class ShopItem : ScriptableObject
 {
@@ -19,6 +27,7 @@ public class ShopItem : ScriptableObject
     public BonusType bonusType;         // Тип бонуса
 
     public bool isInfinite;             // Можно ли бесконечно покупать товар
+    public CurrencyType[] currencyTypes; // Валюта которой платить
 
     public int maxLevel => Mathf.Min(levelPrices.Length, levelBonuses.Length, levelIcons.Length);
 
@@ -62,10 +71,20 @@ public class ShopItem : ScriptableObject
     // Возвращает описание товара для указанного уровня.
     public string GetDescriptionForLevel(int level)
     {
-    if (level >= 0 && level < levelDescriptions.Length)
-        return levelDescriptions[level];
-    else
-        return "";
+        if (level >= 0 && level < levelDescriptions.Length)
+            return levelDescriptions[level];
+        else
+            return "";
     }
 
+    // Возвращает тип валюты указанного уровня. (я хз что тут такое лвл. я так понял что как id используем)
+    public CurrencyType GetCurrencyTypeForLevel(int level)
+    {
+        if (isInfinite) level = 0;
+        if (level >= 0 && level < currencyTypes.Length)
+            return currencyTypes[level];
+        else
+            return CurrencyType.Money;
+    }
+    
 }

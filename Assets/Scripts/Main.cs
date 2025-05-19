@@ -7,17 +7,28 @@ using System;
 using System.Collections;
 public class Main : MonoBehaviour
 {
+    public static Main Instance { get; private set; }
+    private ShopManager shopManager;
 
-    public long money, knowledge;
+    [Header("Переменные валюты")]
+    public double money, knowledge;
+    [Header("UI элементы")]
     public TextMeshProUGUI MoneyText, KnowledgeText;
-    public float kadd = 1f, kmultiplier = 1f, knowledgePassive=0f, MoneyPassive=1f;
+    [Header("Переменные накопления")]
+    public float knowledgePerKlick = 1f, knowledgemultiplier = 1f, knowledgePassive = 0f, moneyPassive = 1f;
 
-    private void Buster_analis()
+    private void Awake()
     {
-        Busters buster1 = new Busters();
-        buster1.buster_name = "buster1";
-        buster1.buster_bonus = 1f;
-        buster1.buster_kol = 2;
+        // Реализация синглтона
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Сохраняем между сценами
+        }
+        else
+        {
+            Destroy(gameObject); // Уничтожаем дубликаты
+        }
     }
 
 
@@ -25,14 +36,14 @@ public class Main : MonoBehaviour
     {
         StartCoroutine(PassiveEarn());
     }
-    
-    
+
+
     private IEnumerator PassiveEarn()
     {
         while (true)
         {
-            knowledge += Convert.ToInt64(knowledgePassive);
-            money += Convert.ToInt64(MoneyPassive);
+            knowledge += knowledgePassive;
+            money += moneyPassive;
             yield return new WaitForSeconds(1f);
         }
     }
@@ -42,10 +53,94 @@ public class Main : MonoBehaviour
     {
         if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) && (EventSystem.current.IsPointerOverGameObject() == false))
         {
-            knowledge += Convert.ToInt64(kadd * kmultiplier);
+            knowledge += Convert.ToInt64(knowledgePerKlick * knowledgemultiplier);
         }
 
         KnowledgeText.text = knowledge.ToString();
         MoneyText.text = money.ToString();
     }
+
+    //Трата денег
+    public bool SpendMoney(int amount)
+    {
+        if (money >= amount)
+        {
+            money -= amount;
+            return true;
+        }
+        return false;
+    }
+    //Трата знаний
+    public bool SpendKnowledge(int amount)
+    {
+        if (knowledge >= amount)
+        {
+            knowledge -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    //Накопление денег
+    public void AddMoney(int amount)
+    {
+        money += amount;
+    }
+
+    //Накопление знаний
+    public void AddKnowledge(long amount)
+    {
+        knowledge += amount;
+    }
+    
+    public void SaveGame()
+    {
+        // Сохраняем основные переменные
+        PlayerPrefs.SetString("money", money.ToString());
+        PlayerPrefs.SetString("knowledge", knowledge.ToString());
+        PlayerPrefs.SetFloat("knowledgePerKlick", knowledgePerKlick);
+        PlayerPrefs.SetFloat("kmultiplier", knowledgemultiplier);
+        PlayerPrefs.SetFloat("knowledgePassive", knowledgePassive);
+        PlayerPrefs.SetFloat("moneyPassive", moneyPassive);
+
+        // Сохраняем уровни улучшений из магазина
+        if (shopManager != null)
+        {
+            for (int i = 0; i < shopManager.shopItems.Length; i++)
+            {
+                PlayerPrefs.SetInt("shopItemLevel_" + i, shopManager.GetCurrentLevel(i));
+            }
+        }
+
+        PlayerPrefs.Save();
+        Debug.Log("Игра сохранена через PlayerPrefs");
+    }
+
+    public void LoadGame()
+    {
+        // Загружаем основные переменные
+        if (PlayerPrefs.HasKey("money"))
+            money = Convert.ToDouble(PlayerPrefs.GetString("money"));
+        
+        if (PlayerPrefs.HasKey("knowledge"))
+            knowledge = Convert.ToDouble(PlayerPrefs.GetString("knowledge"));
+        
+        knowledgePerKlick = PlayerPrefs.GetFloat("knowledgePerKlick", knowledgePerKlick);
+        knowledgemultiplier = PlayerPrefs.GetFloat("kmultiplier", knowledgemultiplier);
+        knowledgePassive = PlayerPrefs.GetFloat("knowledgePassive", knowledgePassive);
+        moneyPassive = PlayerPrefs.GetFloat("moneyPassive", moneyPassive);
+
+        // Загружаем уровни улучшений из магазина
+        if (shopManager != null)
+        {
+            for (int i = 0; i < shopManager.shopItems.Length; i++)
+            {
+                int level = PlayerPrefs.GetInt("shopItemLevel_" + i, 0);
+                shopManager.currentLevels[i] = level;
+            }
+        }
+
+        Debug.Log("Игра загружена из PlayerPrefs");
+    }
+
 }

@@ -5,8 +5,8 @@ public class ShopManager : MonoBehaviour
 {
     public ShopItem[] shopItems;
 
-    private int[] currentLevels;  // текущий уровень для каждого товара
-
+    // текущий уровень для каждого товара
+    public int[] currentLevels { get; private set; }
     // Временные переменные, тебе нужно привязать к глобальным переменным валюты, силы клика и пас. дохода.
     public int clickPower = 1;      // сила клика
     public int moneyForMarket = 0;  // валюта
@@ -36,7 +36,25 @@ public class ShopManager : MonoBehaviour
         int price = item.GetPriceForLevel(level);
         int bonus = item.GetBonusForLevel(level);
 
-        // Добавить проверку на достаточность денег перед покупкой!
+        // Добавил проверку на достаточность денег перед покупкой!
+        if (item.GetCurrencyTypeForLevel(level) == CurrencyType.Knowledge)
+        {
+            if (!Main.Instance.SpendKnowledge(price))
+        {
+            Debug.Log("Недостаточно денег");
+        }
+        }
+
+
+        if (item.GetCurrencyTypeForLevel(level) == CurrencyType.Money)
+        {
+            if (!Main.Instance.SpendMoney(price))
+        {
+            Debug.Log("Недостаточно денег");
+        }
+        }
+        
+
 
         switch (item.bonusType)
         {
