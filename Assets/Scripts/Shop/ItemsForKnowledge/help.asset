@@ -20,6 +20,6 @@ MonoBehaviour:
   levelBonuses: 1e000000
   levelDescriptions:
   - "+30 \u0432\u0430\u043B\u044E\u0442\u044B"
-  bonusType: 0
+  bonusType: 2
   isInfinite: 1
   currencyTypes: 01000000

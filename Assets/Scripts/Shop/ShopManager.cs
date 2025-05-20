@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +9,6 @@ public class ShopManager : MonoBehaviour
     // текущий уровень для каждого товара
     public int[] currentLevels { get; private set; }
     // Временные переменные, тебе нужно привязать к глобальным переменным валюты, силы клика и пас. дохода.
-    public int clickPower = 1;      // сила клика
-    public int moneyForMarket = 0;  // валюта
-    public int passiveIncome = 0;   // пассивный доход
 
     private void Awake()
     {
@@ -40,36 +38,26 @@ public class ShopManager : MonoBehaviour
         if (item.GetCurrencyTypeForLevel(level) == CurrencyType.Knowledge)
         {
             if (!Main.Instance.SpendKnowledge(price))
-        {
-            Debug.Log("Недостаточно денег");
-        }
+            {
+                Debug.Log("Недостаточно знаний");
+                return;
+            }
         }
 
 
         if (item.GetCurrencyTypeForLevel(level) == CurrencyType.Money)
         {
             if (!Main.Instance.SpendMoney(price))
-        {
-            Debug.Log("Недостаточно денег");
+            {
+                Debug.Log("Недостаточно денег");
+                return;
+            }
         }
-        }
-        
+        BonusType bonusType = item.GetBonusTypeForLevel(level);
+        Main.Instance.GetBonus(bonusType, bonus);
 
 
-        switch (item.bonusType)
-        {
-            case BonusType.ClickPower:
-                clickPower += bonus;
-                break;
-            case BonusType.PassiveIncome:
-                passiveIncome += bonus;
-                break;
-            case BonusType.MoneyInstant:
-                moneyForMarket += bonus;
-                break;
-        }
-
-        Debug.Log($"Куплен {item.GetNameForLevel(level)} за {price}. Сила клика = {clickPower}, Доход = {passiveIncome}, Валюта = {moneyForMarket}");
+        Debug.Log($"Куплен {item.GetNameForLevel(level)} за {price}. Сила клика = {Main.Instance.knowledgePerKlick}, Доход = {Main.Instance.knowledgePassive}, Валюта = {Main.Instance.money}");
 
         if (!item.isInfinite)
             currentLevels[itemIndex]++;

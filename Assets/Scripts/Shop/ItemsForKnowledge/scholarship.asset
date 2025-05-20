@@ -24,9 +24,9 @@ MonoBehaviour:
   levelPrices: 64000000c80000002c010000
   levelBonuses: 050000000a0000000f000000
   levelDescriptions:
-  - "+5 \u0432\u0430\u043B\u044E\u0442\u044B \u0432 \u0441."
-  - "+10 \u0432\u0430\u043B\u044E\u0442\u044B \u0432 \u0441"
-  - "+15 \u0432\u0430\u043B\u044E\u0442\u044B \u0432 \u0441."
-  bonusType: 0
+  - "+5 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
+  - "+10 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
+  - "+15 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
+  bonusType: 4
   isInfinite: 0
   currencyTypes: 01000000

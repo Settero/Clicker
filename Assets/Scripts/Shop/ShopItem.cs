@@ -3,9 +3,12 @@ using UnityEngine;
 // Бонусы которые дает товар
 public enum BonusType
 {
-    ClickPower,    // Усиливает клик
-    PassiveIncome, // Увеличивает доход в секунду
-    MoneyInstant   // Мгновенно добавляет деньги
+    knowledgePerKlick,    // Усиливает клик
+    knowledgePassive, // Увеличивает доход в секунду
+    money,  // Мгновенно добавляет деньги
+    knowledge, // Мгновенно знания
+    moneyPassive, // Деньги пассивно
+    knowledgeMultiplier // Множитель клика
 }
 
 // Отдельный енум для типа валют
@@ -87,4 +90,9 @@ public class ShopItem : ScriptableObject
             return CurrencyType.Money;
     }
     
+    // возвращает тип понуса
+    public BonusType GetBonusTypeForLevel(int level)
+{
+    return bonusType;
+}
 }
