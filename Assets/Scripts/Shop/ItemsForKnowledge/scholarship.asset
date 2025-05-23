@@ -21,12 +21,12 @@ MonoBehaviour:
   - {fileID: 5659230168238626165, guid: b6bf64f3818ea7048adcf794dea42649, type: 3}
   - {fileID: -3454419488990572037, guid: f02467aee785ccf49a986c09192b2bee, type: 3}
   - {fileID: -5629258083517393334, guid: 1ccb15b522eac084698d270f707ec810, type: 3}
-  levelPrices: 64000000c80000002c010000
-  levelBonuses: 050000000a0000000f000000
+  levelPrices: f4010000dc05000094110000
+  levelBonuses: 01000000030000000a000000
   levelDescriptions:
-  - "+5 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
+  - "+1 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
+  - "+3 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
   - "+10 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
-  - "+15 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
   bonusType: 4
   isInfinite: 0
   currencyTypes: 01000000

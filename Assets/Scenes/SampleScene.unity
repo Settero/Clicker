@@ -533,7 +533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMin.x
@@ -541,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_SizeDelta.x
@@ -581,11 +581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 352.0527
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -233.80325
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1327,10 +1327,10 @@ MonoBehaviour:
   knowledge: 0
   MoneyText: {fileID: 186996990}
   KnowledgeText: {fileID: 1510100121}
-  kadd: 1
-  kmultiplier: 1
+  knowledgePerKlick: 1
+  knowledgeMultiplier: 1
   knowledgePassive: 0
-  MoneyPassive: 1
+  moneyPassive: 1
 --- !u!224 &531579274 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
@@ -1413,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1421,7 +1421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1461,11 +1461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 352.0527
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.26775
       objectReference: {fileID: 0}
     - target: {fileID: 7094072757370483678, guid: 6626525d5af3c994885a89a2c3591b56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2238,9 +2238,6 @@ MonoBehaviour:
   shopItems:
   - {fileID: 11400000, guid: 3d80cb794da9e91468f2520e5a27db72, type: 2}
   - {fileID: 11400000, guid: a3c30d1e833653348aab8d5846edfe9b, type: 2}
-  clickPower: 1
-  moneyForMarket: 0
-  passiveIncome: 0
 --- !u!1 &1321224941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,9 +2294,6 @@ MonoBehaviour:
   shopItems:
   - {fileID: 11400000, guid: 7a83e0417a612594899d7d731d6ccafa, type: 2}
   - {fileID: 11400000, guid: 748b377f6b50fae4aa7c30e585f8cecf, type: 2}
-  clickPower: 1
-  moneyForMarket: 0
-  passiveIncome: 0
 --- !u!114 &1321224944
 MonoBehaviour:
   m_ObjectHideFlags: 0
