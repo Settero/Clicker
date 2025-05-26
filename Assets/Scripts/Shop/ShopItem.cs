@@ -15,7 +15,6 @@ public enum BonusType
 public enum CurrencyType
 {
     Money,
-
     Knowledge
 }
 
@@ -92,7 +91,7 @@ public class ShopItem : ScriptableObject
     
     // возвращает тип понуса
     public BonusType GetBonusTypeForLevel(int level)
-{
+    {
     return bonusType;
-}
+    }
 }

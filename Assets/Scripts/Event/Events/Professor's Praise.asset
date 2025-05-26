@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7bbb22c7e205e46a42cccac3c2943c, type: 3}
+  m_Name: Professor's Praise
+  m_EditorClassIdentifier: 
+  eventName: "\u041F\u0440\u043E\u0444\u0435\u0441\u0441\u043E\u0440 \u043F\u043E\u0445\u0432\u0430\u043B\u0438\u043B"
+  description: "+100 \u0437\u043D\u0430\u043D\u0438\u0439"
+  probability: 0.04
+  hasChoice: 0
+  bonusType: 0
+  bonusValue: -50
+  leftChoiceText: 
+  choice1BonusType: 0
+  choice1BonusValue: 0
+  rightChoiceText: 
+  choice2BonusType: 0
+  choice2BonusValue: 0
