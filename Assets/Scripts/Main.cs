@@ -15,7 +15,7 @@ public class Main : MonoBehaviour
     [Header("UI элементы")]
     public TextMeshProUGUI MoneyText, KnowledgeText;
     [Header("Переменные накопления")]
-    public float knowledgePerKlick = 1f, knowledgeMultiplier = 1f, knowledgePassive = 0f, moneyPassive = 1f;
+    public float knowledgePerKlick = 1f, knowledgeMultiplier = 1f, knowledgePassive = 0f, moneyPassive = 0f;
 
     private void Awake()
     {
@@ -155,7 +155,7 @@ public class Main : MonoBehaviour
         knowledgePerKlick = PlayerPrefs.GetFloat("knowledgePerKlick", knowledgePerKlick);
         knowledgeMultiplier = PlayerPrefs.GetFloat("knowledgeMultiplier", knowledgeMultiplier);
         knowledgePassive = PlayerPrefs.GetFloat("knowledgePassive", knowledgePassive);
-        moneyPassive = PlayerPrefs.GetFloat("moneyPassive", 1f);
+        moneyPassive = PlayerPrefs.GetFloat("moneyPassive", moneyPassive);
 
         // Загружаем уровни улучшений из магазина
         if (shopManager != null)

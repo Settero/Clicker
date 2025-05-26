@@ -24,7 +24,7 @@ public class ShopItem : ScriptableObject
     public string[] levelNames;         // Имена товара для каждого уровня
     public Sprite[] levelIcons;         // иконки для каждого уровня
     public int[] levelPrices;           // цены для каждого уровня
-    public int[] levelBonuses;          // Бонус
+    public float[] levelBonuses;          // Бонус
     public string[] levelDescriptions;  // Описание для каждого уровня
     public BonusType bonusType;         // Тип бонуса
 
@@ -62,7 +62,7 @@ public class ShopItem : ScriptableObject
     }
 
     // Возвращает бонус для указанного уровня.
-    public int GetBonusForLevel(int level)
+    public float GetBonusForLevel(int level)
     {
         if (isInfinite) level = 0;
         if (level >= 0 && level < levelBonuses.Length)

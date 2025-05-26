@@ -15,9 +15,10 @@ MonoBehaviour:
   levelNames:
   - "\u041B\u0430\u0431\u043E\u0440\u0430\u0442\u043E\u0440\u043D\u0430\u044F \u0440\u0430\u0431\u043E\u0442\u0430"
   levelIcons:
-  - {fileID: -7850268201462607866, guid: 735ace291de988c40947fec9b2671b3c, type: 3}
+  - {fileID: 21300000, guid: 3794e59c2cac7ce4eb0a6fa0d3fd5591, type: 3}
   levelPrices: 64000000
-  levelBonuses: 1e000000
+  levelBonuses:
+  - 30
   levelDescriptions:
   - "+30 \u0432\u0430\u043B\u044E\u0442\u044B"
   bonusType: 2

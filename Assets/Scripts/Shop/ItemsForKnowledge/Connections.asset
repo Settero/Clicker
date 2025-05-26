@@ -18,11 +18,14 @@ MonoBehaviour:
   - "\u041F\u043E\u043A\u0440\u043E\u0432\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u043E
     \u0434\u0435\u043A\u0430\u043D\u0430"
   levelIcons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: ba164f99f6917d64b81d595c43f34475, type: 3}
+  - {fileID: 21300000, guid: ae1597f70e33fe645a008ee49323347b, type: 3}
+  - {fileID: 21300000, guid: ebc70cb4ecbbf7545ad3c09eb7c3a107, type: 3}
   levelPrices: 580200000807000018150000
-  levelBonuses: 02000000050000000f000000
+  levelBonuses:
+  - 2
+  - 5
+  - 15
   levelDescriptions:
   - "+2 \u0437\u043D\u0430\u043D\u0438\u044F/\u0441\u0435\u043A"
   - "+5 \u0437\u043D\u0430\u043D\u0438\u0439/\u0441\u0435\u043A"

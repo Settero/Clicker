@@ -32,9 +32,9 @@ public class ShopManager : MonoBehaviour
         }
 
         int price = item.GetPriceForLevel(level);
-        int bonus = item.GetBonusForLevel(level);
+        float bonus = item.GetBonusForLevel(level);
 
-        // Добавил проверку на достаточность денег перед покупкой!
+        // Добавил проверку на достаточность денег перед покупкой + проверки на тип валюты
         if (item.GetCurrencyTypeForLevel(level) == CurrencyType.Knowledge)
         {
             if (!Main.Instance.SpendKnowledge(price))

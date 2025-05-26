@@ -17,11 +17,14 @@ MonoBehaviour:
   - "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u043D\u044B\u0439 \u043F\u0440\u0438\u043D\u0442\u0435\u0440"
   - "\u041C\u0424\u0423"
   levelIcons:
-  - {fileID: 1799121946817344791, guid: fb249afeb0ff95a438e6aec12fdf762c, type: 3}
-  - {fileID: -1401110133662507876, guid: 9035a2602b4b6774fb8c30b4f5872fca, type: 3}
-  - {fileID: 6953660632073496425, guid: 56aebb836b0170347aec9555b2bf39b4, type: 3}
+  - {fileID: 21300000, guid: edfb01cda032b0446811c560293bdf7c, type: 3}
+  - {fileID: 21300000, guid: 639c47c21dfed4343aae17508eb9ab19, type: 3}
+  - {fileID: 21300000, guid: 8e2b6c059fe36e4449cc98c75b1ec97b, type: 3}
   levelPrices: c80000005802000008070000
-  levelBonuses: 01000000030000000a000000
+  levelBonuses:
+  - 1
+  - 3
+  - 10
   levelDescriptions:
   - "+1 \u0437\u043D\u0430\u043D\u0438\u0439/\u0441"
   - "+3 \u0437\u043D\u0430\u043D\u0438\u0439/\u0441"
