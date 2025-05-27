@@ -15,7 +15,7 @@ MonoBehaviour:
   eventName: "\u041F\u043E\u0442\u0435\u0440\u044F\u043B \u0441\u0442\u0443\u0434\u0435\u043D\u0447\u0435\u0441\u043A\u0438\u0439"
   description: "-150 \u0434\u0435\u043D\u0435\u0433\r"
   hasChoice: 0
-  bonusType: 1
+  bonusType: 2
   bonusValue: -150
   choiceBonus1Type: 0
   choiceBonus1Value: 0

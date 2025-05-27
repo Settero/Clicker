@@ -17,8 +17,8 @@ MonoBehaviour:
   description: "+200 \u0437\u043D\u0430\u043D\u0438\u0439, \u043D\u043E -200 \u0434\u0435\u043D\u0435\u0433"
   hasChoice: 1
   bonusType: 0
-  bonusValue: -50
-  choiceBonus1Type: 0
+  bonusValue: 0
+  choiceBonus1Type: 3
   choiceBonus1Value: 200
-  choiceBonus2Type: 1
+  choiceBonus2Type: 2
   choiceBonus2Value: -200

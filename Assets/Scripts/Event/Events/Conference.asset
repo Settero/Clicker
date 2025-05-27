@@ -17,7 +17,7 @@ MonoBehaviour:
   hasChoice: 1
   bonusType: 0
   bonusValue: 0
-  choiceBonus1Type: 0
+  choiceBonus1Type: 3
   choiceBonus1Value: 500
-  choiceBonus2Type: 1
+  choiceBonus2Type: 2
   choiceBonus2Value: -200

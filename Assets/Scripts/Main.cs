@@ -16,6 +16,9 @@ public class Main : MonoBehaviour
     public TextMeshProUGUI MoneyText, KnowledgeText;
     [Header("Переменные накопления")]
     public float knowledgePerKlick = 1f, knowledgeMultiplier = 1f, knowledgePassive = 0f, moneyPassive = 0f;
+    [Header("Звуки")]
+    [SerializeField] private AudioSource background; // музыка 
+    [SerializeField] private AudioSource buySound; // Звук покупки
 
     private void Awake()
     {
@@ -35,6 +38,8 @@ public class Main : MonoBehaviour
     private void Start()
     {
         StartCoroutine(PassiveEarn());
+        //Запуск музыки
+        background.Play(); 
     }
 
 
@@ -60,6 +65,11 @@ public class Main : MonoBehaviour
         MoneyText.text = money.ToString();
     }
 
+    // Запуск звука монетки
+    public void GetMoneySound()
+    {
+        buySound.Play(); 
+    }
     //Трата денег
     public bool SpendMoney(int amount)
     {
@@ -93,7 +103,7 @@ public class Main : MonoBehaviour
         knowledge += amount;
     }
 
-        // получение бонуса по его типу
+    // получение бонуса по его типу
     public void GetBonus(BonusType bonusType, float bonus)
     {
         switch (bonusType)
@@ -117,6 +127,7 @@ public class Main : MonoBehaviour
                 knowledge += bonus;
                 break;
         }
+        GetMoneySound();
     }
     
     // Сохранение (Хз как проверить, попробуй если не впадлу будет)
