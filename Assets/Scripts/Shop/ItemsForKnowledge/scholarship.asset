@@ -32,4 +32,4 @@ MonoBehaviour:
   - "+10 \u0432\u0430\u043B\u044E\u0442\u044B/\u0441"
   bonusType: 4
   isInfinite: 0
-  currencyTypes: 01000000
+  currencyTypes: 010000000100000001000000

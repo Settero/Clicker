@@ -7,6 +7,9 @@ public class EventManager : MonoBehaviour
     [Header("Event List")]
     public GameEvent[] availableEvents;         // Список возможных ивентов
 
+    private GameEvent randomEvent;
+
+    public Main main;
     int knowledge, money = 0;
 
     // Вызывается по кнопке
@@ -19,7 +22,7 @@ public class EventManager : MonoBehaviour
         }
 
         // Выбор случайного ивента
-        GameEvent randomEvent = availableEvents[Random.Range(0, availableEvents.Length)];
+        randomEvent = availableEvents[Random.Range(0, availableEvents.Length)];
 
         // Показываем ивент
         eventUI.gameObject.SetActive(true);
@@ -33,9 +36,44 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    // Закрыть UI ивента
-    public void CloseEventUI()
+    public void ConfirmEvent()
     {
-        eventUI.gameObject.SetActive(false);
+        if (randomEvent == null)
+            return;
+
+        // Проверяем второй тип бонуса
+        if (randomEvent.Bonus2Type != GameEventBonusType.None)
+        {
+            // Ивент с выбором — применяем оба бонуса
+            ApplyBonus(randomEvent.Bonus1Type, randomEvent.Bonus1Value);
+            ApplyBonus(randomEvent.Bonus2Type, randomEvent.Bonus2Value);
+            Debug.Log($"Принят ивент с выбором: {randomEvent.eventName} — {randomEvent.GetSingleBonusSummary()}, {randomEvent.GetChoice2Summary()}");
+        }
+        else
+        {
+            // Ивент без выбора
+            ApplyBonus(randomEvent.Bonus1Type, randomEvent.Bonus1Value);
+            Debug.Log($"Принят ивент без выбора: {randomEvent.eventName} — {randomEvent.GetSingleBonusSummary()}");
+        }
     }
+
+    // Универсальный обработчик бонусов
+    private void ApplyBonus(GameEventBonusType type, int value)
+    {
+        switch (type)
+        {
+            case GameEventBonusType.Knowledge:
+                main.knowledge += value;
+                Debug.Log($"Знания: {main.knowledge}");
+                break;
+            case GameEventBonusType.Money:
+                main.money += value;
+                Debug.Log($"Деньги: {main.money}");
+                break;
+            case GameEventBonusType.None:
+                Debug.Log("Бонус отсутствует");
+                break;
+        }
+    }
+
 }

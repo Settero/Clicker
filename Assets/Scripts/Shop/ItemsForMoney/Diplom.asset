@@ -17,7 +17,8 @@ MonoBehaviour:
   levelIcons:
   - {fileID: 1799121946817344791, guid: fb249afeb0ff95a438e6aec12fdf762c, type: 3}
   levelPrices: 204e0000
-  levelBonuses: 00000000
+  levelBonuses:
+  - 0
   levelDescriptions:
   - "\u041F\u043E\u0431\u0435\u0434\u0430!"
   bonusType: 2

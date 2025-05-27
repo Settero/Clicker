@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum GameEventBonusType
 {
+    None,       // Отсутствие бонуса (для Bonus2 в ивенте без выбора)
     Knowledge,  // Знания
     Money       // Деньги
 }
@@ -9,43 +10,41 @@ public enum GameEventBonusType
 [CreateAssetMenu(fileName = "NewGameEvent", menuName = "Events/Game Event")]
 public class GameEvent : ScriptableObject
 {
-    public string eventName;                    // Имя ивента
+    public string eventName;        // Имя ивента
     [TextArea]
-    public string description;                  // Описание ивента
+    public string description;      // Описание ивента
 
-    public bool hasChoice;                       // true — если есть выбор, false — если нет
+    public bool hasChoice;          // true — если есть выбор, false — если нет
 
-    // Если ивент без выбора
-    public GameEventBonusType bonusType;
-    public int bonusValue;
+    public GameEventBonusType Bonus1Type;    // Первый бонус (или единственный, если без выбора)
+    public int Bonus1Value;
 
-    // Если ивент с выбором
-    public GameEventBonusType choiceBonus1Type;
-    public int choiceBonus1Value;
+    public GameEventBonusType Bonus2Type;    // Второй бонус (None, если не используется)
+    public int Bonus2Value;
 
-    public GameEventBonusType choiceBonus2Type;
-    public int choiceBonus2Value;
-
-    // Геттер для вывода бонуса без выбора
+    // Геттер для бонуса без выбора
     public string GetSingleBonusSummary()
     {
-        return FormatBonus(bonusType, bonusValue);
+        return FormatBonus(Bonus1Type, Bonus1Value);
     }
 
-    // Геттеры для вывода бонусов с выбором
+    // Геттеры для бонусов с выбором
     public string GetChoice1Summary()
     {
-        return FormatBonus(choiceBonus1Type, choiceBonus1Value);
+        return FormatBonus(Bonus1Type, Bonus1Value);
     }
 
     public string GetChoice2Summary()
     {
-        return FormatBonus(choiceBonus2Type, choiceBonus2Value);
+        return FormatBonus(Bonus2Type, Bonus2Value);
     }
 
     // Форматирование бонуса
     private string FormatBonus(GameEventBonusType type, int value)
     {
+        if (type == GameEventBonusType.None)
+            return "Нет бонуса";
+
         string sign = value > 0 ? "+" : "";
         string label = type == GameEventBonusType.Knowledge ? "Знания" : "Деньги";
         return $"{sign}{value} {label}";
