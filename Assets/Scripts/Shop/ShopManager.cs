@@ -12,9 +12,13 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
-        currentLevels = new int[shopItems.Length];
-        for (int i = 0; i < currentLevels.Length; i++)
-            currentLevels[i] = 0;
+        // Инициализируем массив, если он не создан
+        if (currentLevels == null || currentLevels.Length != shopItems.Length)
+        {
+            currentLevels = new int[shopItems.Length];
+            for (int i = 0; i < currentLevels.Length; i++)
+                currentLevels[i] = 0;
+        }
     }
 
     public void BuyNextLevel(int itemIndex)
@@ -69,5 +73,58 @@ public class ShopManager : MonoBehaviour
     {
         if (itemIndex < 0 || itemIndex >= currentLevels.Length) return 0;
         return currentLevels[itemIndex];
+    }
+
+
+        // Метод для сохранения уровней предметов
+   public void SaveLevels(string saveKey)
+    {
+        if (currentLevels == null)
+        {
+            Debug.LogError("SaveLevels: currentLevels не инициализирован!");
+            return;
+        }
+
+        for (int i = 0; i < currentLevels.Length; i++)
+        {
+            PlayerPrefs.SetInt($"{saveKey}_item_{i}", currentLevels[i]);
+        }
+    }
+
+
+    // Метод для загрузки уровней предметов
+    public void LoadLevels(string saveKey)
+    {
+        // Если массив не создан — создаем его
+        if (currentLevels == null || currentLevels.Length != shopItems.Length)
+        {
+            currentLevels = new int[shopItems.Length];
+        }
+
+        // Проверяем, есть ли сохраненные данные
+        bool hasSaveData = PlayerPrefs.HasKey($"{saveKey}_item_0");
+
+        if (hasSaveData)
+        {
+            // Загружаем сохраненные уровни
+            for (int i = 0; i < currentLevels.Length; i++)
+            {
+                currentLevels[i] = PlayerPrefs.GetInt($"{saveKey}_item_{i}", 0);
+            }
+        }
+        else
+        {
+            // Если сохранений нет — сбрасываем в 0
+            for (int i = 0; i < currentLevels.Length; i++)
+            {
+                currentLevels[i] = 0;
+            }
+        }
+    }
+    public void ResetLevels()
+    {
+    currentLevels = new int[shopItems.Length]; // Создаём новый массив с нулями
+    for (int i = 0; i < currentLevels.Length; i++)
+        currentLevels[i] = 0;
     }
 }

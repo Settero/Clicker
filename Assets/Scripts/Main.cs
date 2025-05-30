@@ -9,8 +9,9 @@ using System.Security.Cryptography;
 public class Main : MonoBehaviour
 {
     public static Main Instance { get; private set; }
-    [SerializeField]private ShopManager shopManager;
-    [SerializeField]private EventManager eventManager;
+    [SerializeField] private ShopManager shopManagerMoney;
+    [SerializeField] private ShopManager shopManagerKnowledge;
+    [SerializeField] private EventManager eventManager;
 
 
     [Header("Переменные валюты")]
@@ -37,6 +38,7 @@ public class Main : MonoBehaviour
         {
             Destroy(gameObject); // Уничтожаем дубликаты
         }
+        LoadGame();
     }
 
 
@@ -45,7 +47,7 @@ public class Main : MonoBehaviour
         StartCoroutine(PassiveEarn());
         StartCoroutine(EventRandom());
         //Запуск музыки
-        background.Play(); 
+        background.Play();
     }
 
 
@@ -64,7 +66,7 @@ public class Main : MonoBehaviour
     {
         while (true)
         {
-            int randomtime = RandomNumberGenerator.GetInt32(minRandomTime, maxRandomTime+1);
+            int randomtime = RandomNumberGenerator.GetInt32(minRandomTime, maxRandomTime + 1);
             yield return new WaitForSeconds(randomtime);
             eventManager.TriggerRandomEvent();
         }
@@ -85,7 +87,7 @@ public class Main : MonoBehaviour
     // Запуск звука монетки
     public void GetMoneySound()
     {
-        buySound.Play(); 
+        buySound.Play();
     }
     //Трата денег
     public bool SpendMoney(int amount)
@@ -146,7 +148,7 @@ public class Main : MonoBehaviour
         }
         GetMoneySound();
     }
-    
+
     // Сохранение (Хз как проверить, попробуй если не впадлу будет)
     public void SaveGame()
     {
@@ -157,15 +159,11 @@ public class Main : MonoBehaviour
         PlayerPrefs.SetFloat("knowledgeMultiplier", knowledgeMultiplier);
         PlayerPrefs.SetFloat("knowledgePassive", knowledgePassive);
         PlayerPrefs.SetFloat("moneyPassive", moneyPassive);
+        if (shopManagerMoney != null)
+            shopManagerMoney.SaveLevels("moneyShop");
 
-        // Сохраняем уровни улучшений из магазина
-        if (shopManager != null)
-        {
-            for (int i = 0; i < shopManager.shopItems.Length; i++)
-            {
-                PlayerPrefs.SetInt("shopItemLevel_" + i, shopManager.GetCurrentLevel(i));
-            }
-        }
+        if (shopManagerKnowledge != null)
+            shopManagerKnowledge.SaveLevels("knowledgeShop");
 
         PlayerPrefs.Save();
         Debug.Log("Игра сохранена через PlayerPrefs");
@@ -176,26 +174,69 @@ public class Main : MonoBehaviour
         // Загружаем основные переменные
         if (PlayerPrefs.HasKey("money"))
             money = Convert.ToDouble(PlayerPrefs.GetString("money"));
-        
+
         if (PlayerPrefs.HasKey("knowledge"))
             knowledge = Convert.ToDouble(PlayerPrefs.GetString("knowledge"));
-        
+
         knowledgePerKlick = PlayerPrefs.GetFloat("knowledgePerKlick", knowledgePerKlick);
         knowledgeMultiplier = PlayerPrefs.GetFloat("knowledgeMultiplier", knowledgeMultiplier);
         knowledgePassive = PlayerPrefs.GetFloat("knowledgePassive", knowledgePassive);
         moneyPassive = PlayerPrefs.GetFloat("moneyPassive", moneyPassive);
 
-        // Загружаем уровни улучшений из магазина
-        if (shopManager != null)
-        {
-            for (int i = 0; i < shopManager.shopItems.Length; i++)
-            {
-                int level = PlayerPrefs.GetInt("shopItemLevel_" + i, 0);
-                shopManager.currentLevels[i] = level;
-            }
-        }
+        if (shopManagerMoney != null)
+            shopManagerMoney.LoadLevels("moneyShop");
+
+        if (shopManagerKnowledge != null)
+            shopManagerKnowledge.LoadLevels("knowledgeShop");
 
         Debug.Log("Игра загружена из PlayerPrefs");
     }
+
+    //Сохра на закрытие
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    //Сохра на сворачивание 
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            SaveGame();
+        }
+        else
+        {
+            LoadGame();
+        }
+    }
+    
+    //Cброс сохр
+    public void ResetAllProgress()
+{
+    // Очищаем PlayerPrefs
+    PlayerPrefs.DeleteAll();
+    
+    // Сбрасываем переменные к начальным значениям
+    money = 0;
+    knowledge = 0;
+    knowledgePerKlick = 1f;
+    knowledgeMultiplier = 1f;
+    knowledgePassive = 0f;
+    moneyPassive = 0f;
+
+    // Сбрасываем уровни магазинов
+    if (shopManagerMoney != null)
+        shopManagerMoney.ResetLevels();
+    
+    if (shopManagerKnowledge != null)
+        shopManagerKnowledge.ResetLevels();
+
+    // Обновляем UI
+    MoneyText.text = money.ToString();
+    KnowledgeText.text = knowledge.ToString();
+
+    Debug.Log("Весь прогресс сброшен!");
+}
 
 }

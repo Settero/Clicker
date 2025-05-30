@@ -10,7 +10,6 @@ public class EventManager : MonoBehaviour
     private GameEvent randomEvent;
 
     public Main main;
-    int knowledge, money = 0;
 
     // Вызывается по кнопке
     public void TriggerRandomEvent()
