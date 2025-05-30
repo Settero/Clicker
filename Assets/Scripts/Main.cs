@@ -12,6 +12,8 @@ public class Main : MonoBehaviour
     [SerializeField]private ShopManager shopManager;
     [SerializeField]private EventManager eventManager;
 
+    public Animation Animation;
+    public FallBooks FallBooks;
 
     [Header("Переменные валюты")]
     public double money, knowledge;
@@ -55,6 +57,7 @@ public class Main : MonoBehaviour
         {
             knowledge += knowledgePassive;
             money += moneyPassive;
+            FallBooks.SpawnSprites(Convert.ToInt32(knowledgePassive));
             yield return new WaitForSeconds(1f);
         }
     }
@@ -75,6 +78,8 @@ public class Main : MonoBehaviour
     {
         if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) && (EventSystem.current.IsPointerOverGameObject() == false))
         {
+            Animation.Play();
+            FallBooks.SpawnSprites(Convert.ToInt32(knowledgePerKlick * knowledgeMultiplier));
             knowledge += Convert.ToInt64(knowledgePerKlick * knowledgeMultiplier);
         }
 
