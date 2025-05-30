@@ -5,10 +5,13 @@ using System.IO;
 using TMPro;
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 public class Main : MonoBehaviour
 {
     public static Main Instance { get; private set; }
-    private ShopManager shopManager;
+    [SerializeField]private ShopManager shopManager;
+    [SerializeField]private EventManager eventManager;
+
 
     [Header("Переменные валюты")]
     public double money, knowledge;
@@ -16,6 +19,8 @@ public class Main : MonoBehaviour
     public TextMeshProUGUI MoneyText, KnowledgeText;
     [Header("Переменные накопления")]
     public float knowledgePerKlick = 1f, knowledgeMultiplier = 1f, knowledgePassive = 0f, moneyPassive = 0f;
+    [Header("Эвенты")]
+    public int minRandomTime = 10, maxRandomTime = 20;
     [Header("Звуки")]
     [SerializeField] private AudioSource background; // музыка 
     [SerializeField] private AudioSource buySound; // Звук покупки
@@ -38,6 +43,7 @@ public class Main : MonoBehaviour
     private void Start()
     {
         StartCoroutine(PassiveEarn());
+        StartCoroutine(EventRandom());
         //Запуск музыки
         background.Play(); 
     }
@@ -50,6 +56,17 @@ public class Main : MonoBehaviour
             knowledge += knowledgePassive;
             money += moneyPassive;
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+
+    private IEnumerator EventRandom()
+    {
+        while (true)
+        {
+            int randomtime = RandomNumberGenerator.GetInt32(minRandomTime, maxRandomTime+1);
+            yield return new WaitForSeconds(randomtime);
+            eventManager.TriggerRandomEvent();
         }
     }
 

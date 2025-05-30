@@ -63,13 +63,25 @@ public class EventManager : MonoBehaviour
         switch (type)
         {
             case GameEventBonusType.Knowledge:
-                main.knowledge += value;
-                Debug.Log($"Знания: {main.knowledge}");
+                if (main.knowledge + value < 0)
+                {
+                    main.knowledge = 0;
+                }
+                else
+                {
+                    main.AddKnowledge(value);
+                }
                 break;
             case GameEventBonusType.Money:
-                main.money += value;
-                Debug.Log($"Деньги: {main.money}");
-                break;
+                if (main.money + value < 0)
+                {
+                    main.money = 0;
+                }
+                else
+                {
+                    main.AddMoney(value);
+                }
+            break;
             case GameEventBonusType.None:
                 Debug.Log("Бонус отсутствует");
                 break;
