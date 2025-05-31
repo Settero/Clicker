@@ -86,6 +86,11 @@ public class EventManager : MonoBehaviour
     }
 
 
+    //Проверка на наличие показываемого ивнта
+    public bool IsEventAlreadyShown()
+    {
+        return eventUI != null && eventUI.gameObject.activeInHierarchy;
+    }
     //Проверка на доступность
     public bool CheckRandomEvent(GameEventBonusType type, int value)
     {
@@ -94,11 +99,11 @@ public class EventManager : MonoBehaviour
         {
             case GameEventBonusType.Knowledge:
                 if (main.knowledge + value < 0)
-                    isEventGood=false;
+                    isEventGood = false;
                 break;
             case GameEventBonusType.Money:
                 if (main.money + value < 0)
-                    isEventGood=false;
+                    isEventGood = false;
                 break;
             case GameEventBonusType.None:
                 Debug.Log("Бонус отсутствует");

@@ -71,7 +71,8 @@ public class Main : MonoBehaviour
         {
             int randomtime = RandomNumberGenerator.GetInt32(minRandomTime, maxRandomTime + 1);
             yield return new WaitForSeconds(randomtime);
-            eventManager.TriggerRandomEvent();
+            if (!eventManager.IsEventAlreadyShown())
+                eventManager.TriggerRandomEvent();
         }
     }
 
