@@ -11,6 +11,8 @@ public class EventUI : MonoBehaviour
     public Button leftChoiceButton; // Для первого варианта
     public Button rightChoiceButton;// Для второго варианта
 
+    public Button MoneyShop,KnowledgeShop;
+
     /// <summary>
     /// Обновляет UI для ивента без выбора.
     /// </summary>
@@ -22,6 +24,9 @@ public class EventUI : MonoBehaviour
         centerButton.gameObject.SetActive(true);
         leftChoiceButton.gameObject.SetActive(false);
         rightChoiceButton.gameObject.SetActive(false);
+
+        MoneyShop.interactable = false;
+        KnowledgeShop.interactable = false;
     }
 
     /// Обновляет UI для ивента с выбором.
@@ -38,5 +43,7 @@ public class EventUI : MonoBehaviour
     public void HideUI()
     {
         gameObject.SetActive(false);
+        MoneyShop.interactable = true;
+        KnowledgeShop.interactable = true;
     }
 }
