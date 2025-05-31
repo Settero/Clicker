@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
     // Вызывается по кнопке
     public void TriggerRandomEvent()
     {
+        bool isEventGood = true;
         if (availableEvents == null || availableEvents.Length == 0)
         {
             Debug.LogWarning("Нет доступных ивентов!");
@@ -22,17 +23,28 @@ public class EventManager : MonoBehaviour
 
         // Выбор случайного ивента
         randomEvent = availableEvents[Random.Range(0, availableEvents.Length)];
-
-        // Показываем ивент
-        eventUI.gameObject.SetActive(true);
-        if (randomEvent.hasChoice)
+        if (randomEvent.Bonus2Type != GameEventBonusType.None)
         {
-            eventUI.ShowChoiceEvent(randomEvent);
+            isEventGood = CheckRandomEvent(randomEvent.Bonus1Type, randomEvent.Bonus1Value);
+            isEventGood = CheckRandomEvent(randomEvent.Bonus2Type, randomEvent.Bonus2Value);
         }
         else
         {
-            eventUI.ShowEvent(randomEvent);
+            // Ивент без выбора
+            isEventGood = CheckRandomEvent(randomEvent.Bonus1Type, randomEvent.Bonus1Value);
         }
+        if (isEventGood)
+        {
+            // Показываем ивент
+            eventUI.gameObject.SetActive(true);
+            if (randomEvent.hasChoice)
+                eventUI.ShowChoiceEvent(randomEvent);
+            else
+                eventUI.ShowEvent(randomEvent);
+        }
+        else
+            TriggerRandomEvent();
+        
     }
 
     public void ConfirmEvent()
@@ -62,29 +74,37 @@ public class EventManager : MonoBehaviour
         switch (type)
         {
             case GameEventBonusType.Knowledge:
-                if (main.knowledge + value < 0)
-                {
-                    main.knowledge = 0;
-                }
-                else
-                {
-                    main.AddKnowledge(value);
-                }
+                main.AddKnowledge(value);
                 break;
             case GameEventBonusType.Money:
-                if (main.money + value < 0)
-                {
-                    main.money = 0;
-                }
-                else
-                {
-                    main.AddMoney(value);
-                }
-            break;
+                main.AddMoney(value);
+                break;
             case GameEventBonusType.None:
                 Debug.Log("Бонус отсутствует");
                 break;
         }
+    }
+
+
+    //Проверка на доступность
+    public bool CheckRandomEvent(GameEventBonusType type, int value)
+    {
+        bool isEventGood = true;
+        switch (type)
+        {
+            case GameEventBonusType.Knowledge:
+                if (main.knowledge + value < 0)
+                    isEventGood=false;
+                break;
+            case GameEventBonusType.Money:
+                if (main.money + value < 0)
+                    isEventGood=false;
+                break;
+            case GameEventBonusType.None:
+                Debug.Log("Бонус отсутствует");
+                break;
+        }
+        return isEventGood;
     }
 
 }
