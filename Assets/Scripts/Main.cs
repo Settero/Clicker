@@ -59,7 +59,7 @@ public class Main : MonoBehaviour
         {
             knowledge += knowledgePassive;
             money += moneyPassive;
-            FallBooks.SpawnSprites(Convert.ToInt32(knowledgePassive));
+            if (knowledgePassive > 0) {FallBooks.SpawnSprites(Convert.ToInt32(knowledgePassive));}
             yield return new WaitForSeconds(1f);
         }
     }

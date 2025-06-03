@@ -14,6 +14,7 @@ public class FallBooks : MonoBehaviour
 
     public void SpawnSprites(float clickPower)
     {
+        if (clickPower <= 0) return;
         if (isSpawning) return; 
         int count = Mathf.Clamp(Mathf.FloorToInt(clickPower / 10f), 1, 5);
 
